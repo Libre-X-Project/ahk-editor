@@ -94,7 +94,6 @@ struct editorConfig {
 struct editorConfig E;
 
 /*** filetypes ***/
-
 char *C_HL_extensions[] = { ".c", ".h", ".cpp", NULL };
 char *C_HL_keywords[] = {
   "switch", "if", "while", "for", "break", "continue", "return", "else",
@@ -113,6 +112,22 @@ char *RUBY_HL_keywords[] = {
   "undef", "unless", "until", "when", "while", "yield", NULL
 };
 
+// NASM Assembly language syntax
+char *NASM_HL_extensions[] = { ".asm", NULL };
+char *NASM_HL_keywords[] = {
+  // Instructions
+  "mov", "add", "sub", "mul", "div", "xor", "and", "or", "jmp", "je", "jne", "jg", "jge", "jl", "jle",
+  "call", "ret", "push", "pop", "inc", "dec", "cmp", "test", "lea", "nop",
+
+  // Registers
+  "eax", "ebx", "ecx", "edx", "esi", "edi", "esp", "ebp", 
+  "rax", "rbx", "rcx", "rdx", "rsi", "rdi", "rsp", "rbp", 
+  "al", "bl", "cl", "dl", "ah", "bh", "ch", "dh",
+
+  // Directives
+  "section", "global", "extern", "db", "dw", "dd", "dq", "resb", "resw", "resd", "resq", NULL
+};
+
 struct editorSyntax HLDB[] = {
   {
     "c",
@@ -128,9 +143,18 @@ struct editorSyntax HLDB[] = {
     "#", "=begin", "=end",
     HL_HIGHLIGHT_NUMBERS | HL_HIGHLIGHT_STRINGS
   },
+  {
+    "nasm",
+    NASM_HL_extensions,
+    NASM_HL_keywords,
+    ";", NULL, NULL,   // Single-line comment with ";", no multi-line comment support
+    HL_HIGHLIGHT_NUMBERS | HL_HIGHLIGHT_STRINGS
+  },
 };
 
-# define HLDB_ENTRIES (sizeof(HLDB) / sizeof(HLDB[0]))
+
+
+#define HLDB_ENTRIES (sizeof(HLDB) / sizeof(HLDB[0]))
 
 /*** prototypes ***/
 
