@@ -94,6 +94,7 @@ struct editorConfig {
 struct editorConfig E;
 
 /*** filetypes ***/
+// Updated definitions including .h files
 char *C_HL_extensions[] = { ".c", ".h", ".cpp", NULL };
 char *C_HL_keywords[] = {
   "switch", "if", "while", "for", "break", "continue", "return", "else",
@@ -147,14 +148,20 @@ struct editorSyntax HLDB[] = {
     "nasm",
     NASM_HL_extensions,
     NASM_HL_keywords,
-    ";", NULL, NULL,   // Single-line comment with ";", no multi-line comment support
+    ";", NULL, NULL,
+    HL_HIGHLIGHT_NUMBERS | HL_HIGHLIGHT_STRINGS
+  },
+  {
+    "header",
+    (char *[]) { ".h", NULL },
+    C_HL_keywords, // Use C keywords for header files
+    "//", "/*", "*/",
     HL_HIGHLIGHT_NUMBERS | HL_HIGHLIGHT_STRINGS
   },
 };
 
-
-
 #define HLDB_ENTRIES (sizeof(HLDB) / sizeof(HLDB[0]))
+
 
 /*** prototypes ***/
 
